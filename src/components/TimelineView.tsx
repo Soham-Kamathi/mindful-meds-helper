@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { CheckCircle2, Clock } from 'lucide-react';
+import { Medication } from '@/components/MedicationCard';
 
 export interface TimelineEvent {
   time: string;
@@ -14,16 +15,6 @@ interface TimelineViewProps {
   events?: TimelineEvent[];
   medications?: Medication[];
   onMarkAsTaken?: (id: string) => void;
-}
-
-interface Medication {
-  id: string;
-  name: string;
-  dosage: string;
-  frequency: string;
-  time: string;
-  taken: boolean;
-  instructions?: string;
 }
 
 interface TimeSlot {
