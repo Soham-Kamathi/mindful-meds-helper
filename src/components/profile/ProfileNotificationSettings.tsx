@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
 import { Separator } from "@/components/ui/separator";
-import { Radio, RadioGroup, RadioIndicator, RadioItem } from "@/components/ui/radio-group";
+import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Bell, AlertCircle, Clock, Calendar, Smartphone, Mail } from "lucide-react";
 
@@ -116,19 +115,19 @@ export const ProfileNotificationSettings = () => {
             <h3 className="text-sm font-medium">Reminder Timing</h3>
             <RadioGroup defaultValue="15">
               <div className="flex items-center space-x-2">
-                <RadioItem value="5" id="r1" />
+                <RadioGroupItem value="5" id="r1" />
                 <Label htmlFor="r1">5 minutes before</Label>
               </div>
               <div className="flex items-center space-x-2">
-                <RadioItem value="15" id="r2" />
+                <RadioGroupItem value="15" id="r2" />
                 <Label htmlFor="r2">15 minutes before</Label>
               </div>
               <div className="flex items-center space-x-2">
-                <RadioItem value="30" id="r3" />
+                <RadioGroupItem value="30" id="r3" />
                 <Label htmlFor="r3">30 minutes before</Label>
               </div>
               <div className="flex items-center space-x-2">
-                <RadioItem value="60" id="r4" />
+                <RadioGroupItem value="60" id="r4" />
                 <Label htmlFor="r4">1 hour before</Label>
               </div>
             </RadioGroup>
