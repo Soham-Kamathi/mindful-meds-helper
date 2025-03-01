@@ -1,12 +1,29 @@
 
 import { useState, useEffect } from 'react';
-import { Medication } from './MedicationCard';
 import { cn } from '@/lib/utils';
 import { CheckCircle2, Clock } from 'lucide-react';
 
+export interface TimelineEvent {
+  time: string;
+  title: string;
+  description: string;
+  status: 'taken' | 'missed' | 'skipped';
+}
+
 interface TimelineViewProps {
-  medications: Medication[];
+  events?: TimelineEvent[];
+  medications?: Medication[];
   onMarkAsTaken?: (id: string) => void;
+}
+
+interface Medication {
+  id: string;
+  name: string;
+  dosage: string;
+  frequency: string;
+  time: string;
+  taken: boolean;
+  instructions?: string;
 }
 
 interface TimeSlot {
@@ -14,7 +31,7 @@ interface TimeSlot {
   medications: Medication[];
 }
 
-const TimelineView = ({ medications, onMarkAsTaken }: TimelineViewProps) => {
+const TimelineView = ({ medications = [], events = [], onMarkAsTaken }: TimelineViewProps) => {
   const [timeSlots, setTimeSlots] = useState<TimeSlot[]>([]);
   const [currentTime, setCurrentTime] = useState<string>('');
 
@@ -88,7 +105,47 @@ const TimelineView = ({ medications, onMarkAsTaken }: TimelineViewProps) => {
     }
   };
   
-  if (timeSlots.length === 0) {
+  // Render events timeline if events are provided
+  if (events.length > 0) {
+    return (
+      <div className="space-y-8 relative">
+        {/* Timeline line */}
+        <div className="absolute top-0 bottom-0 left-4 w-[1px] bg-border"></div>
+        
+        {events.map((event, index) => (
+          <div key={index} className="relative pl-12">
+            {/* Time indicator */}
+            <div className={cn(
+              "absolute left-0 top-0 w-8 h-8 rounded-full flex items-center justify-center",
+              event.status === 'taken' ? "bg-green-100" : 
+              event.status === 'missed' ? "bg-red-100" : "bg-amber-100"
+            )}>
+              <Clock className={cn(
+                "h-4 w-4",
+                event.status === 'taken' ? "text-green-600" : 
+                event.status === 'missed' ? "text-red-600" : "text-amber-600"
+              )} />
+            </div>
+            
+            {/* Event content */}
+            <div>
+              <div className="flex items-center mb-3">
+                <h3 className="text-lg font-medium">{event.time}</h3>
+              </div>
+              
+              <div className="p-4 border rounded-lg">
+                <h4 className="font-medium">{event.title}</h4>
+                <p className="text-sm text-muted-foreground mt-1">{event.description}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  
+  // Render medication timeline if no events but medications
+  if (medications.length === 0) {
     return (
       <div className="p-6 text-center border border-dashed rounded-lg">
         <p className="text-muted-foreground">No medications scheduled for today</p>
