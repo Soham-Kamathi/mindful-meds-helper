@@ -1,38 +1,38 @@
 
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Index from "./pages/Index";
-import Dashboard from "./pages/Dashboard";
-import AddMedication from "./pages/AddMedication";
-import MedicationTracker from "./pages/MedicationTracker";
-import Notifications from "./pages/Notifications";
-import Auth from "./pages/Auth";
-import NotFound from "./pages/NotFound";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import './App.css';
+import Dashboard from './pages/Dashboard';
+import Index from './pages/Index';
+import MedicationTracker from './pages/MedicationTracker';
+import Notifications from './pages/Notifications';
+import AddMedication from './pages/AddMedication';
+import Auth from './pages/Auth';
+import NotFound from './pages/NotFound';
+import Profile from './pages/Profile';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import { Toaster } from './components/ui/sonner';
 
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
+function App() {
+  return (
+    <Router>
+      <Navbar />
+      <div className="min-h-screen">
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/add-medication" element={<AddMedication />} />
           <Route path="/medication-tracker" element={<MedicationTracker />} />
           <Route path="/notifications" element={<Notifications />} />
+          <Route path="/add-medication" element={<AddMedication />} />
           <Route path="/auth" element={<Auth />} />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          <Route path="/profile" element={<Profile />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
-);
+      </div>
+      <Footer />
+      <Toaster />
+    </Router>
+  );
+}
 
 export default App;
