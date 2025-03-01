@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Calendar } from '@/components/ui/calendar';
-import { TimelineView } from '@/components/TimelineView';
+import TimelineView from '@/components/TimelineView';
 import { Check, List, Pill } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 
